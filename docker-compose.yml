@@ -1,0 +1,18 @@
+version: '3'
+services:
+  # PHP service
+  php:
+    container_name: sae-php-oop
+    hostname: sae-php-oop
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public:/var/www/html
+    env_file:
+      - .env      
+
+volumes:
+  mysql_data:
