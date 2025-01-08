@@ -17,10 +17,8 @@ class Car {
         echo "Car is running\n";
     }
 }
-
 $car = new Car();
 $car->startCar();
 // Ausgabe:
 // Engine started
 // Car is running
-?>
