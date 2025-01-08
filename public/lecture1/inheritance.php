@@ -1,16 +1,23 @@
 <?php
 class Animal {
+    public $sound = "generic\n";
     public function makeSound() {
-        echo "Some generic sound\n";
+        echo $this->sound;
     }
 }
 
 class Dog extends Animal {
-    public function makeSound() {
-        echo "Woof!\n";
-    }
+    public $sound = "Woooof!\n";
 }
+class Cat extends Animal {
+    public $sound = "meouw!\n";
+}
+$animal = new Animal();
+$animal->makeSound();
 
 $dog = new Dog();
-$dog->makeSound(); // Ausgabe: Woof!
+$dog->makeSound();
+
+$cat = new Cat();
+$cat->makeSound();
 ?>
