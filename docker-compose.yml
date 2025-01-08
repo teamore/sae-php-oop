@@ -1,18 +1,14 @@
-version: '3'
+version: '3.8'
+
 services:
-  # PHP service
-  php:
-    container_name: sae-php-oop
-    hostname: sae-php-oop
+  apache:
     build:
       context: .
-      dockerfile: Dockerfile
+    container_name: apache_php_server
     ports:
       - "8080:80"
     volumes:
       - ./public:/var/www/html
-    env_file:
-      - .env      
-
-volumes:
-  mysql_data:
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - ./apache-config.conf:/etc/apache2/sites-available/000-default.conf
+    restart: always

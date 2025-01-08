@@ -1,15 +1,19 @@
+# Dockerfile
 FROM php:8.2-apache
 
-# Set the working directory to /var/www/html
+# Install required modules and tools
+RUN apt-get update && apt-get install -y \
+    nano \
+    && docker-php-ext-install opcache
+
+# Enable Apache modules for directory listing and rewrite rules
+RUN a2enmod rewrite headers dir
+
+# Copy custom Apache configuration
+COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
+
+# Set up working directory
 WORKDIR /var/www/html
 
-# Install any dependencies your application needs
-RUN apt-get update && \
-    apt-get install -y libpq-dev && \
-    docker-php-ext-install pdo pdo_mysql
-
-# Expose port 80 for the web server
+# Expose port 80
 EXPOSE 80
-
-# Start Apache in the foreground
-CMD ["apache2-foreground"]
