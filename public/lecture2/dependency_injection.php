@@ -1,14 +1,22 @@
 <?php
-class Mailer {
-    public function send($message) {
-        echo "Sending: $message\n";
+interface Notifier {
+    public function send(string $message);
+}
+class Mailer implements Notifier {
+    public function send(string $message) {
+        echo "Sending Mail: $message\n";
     }
+}
+class Sms implements Notifier {
+    public function send(string $message) {
+        echo "Sending SMS: $message\n";
+    }    
 }
 
 class Notification {
     private $mailer;
 
-    public function __construct(Mailer $mailer) {
+    public function __construct(Notifier $mailer) {
         $this->mailer = $mailer;
     }
 
@@ -20,5 +28,9 @@ class Notification {
 $mailer = new Mailer();
 $notification = new Notification($mailer);
 $notification->sendNotification("Hello, World!");
-// Ausgabe: Sending: Hello, World!
+
+$sms = new Sms();
+$notification = new Notification($sms);
+$notification->sendNotification("Hello, World!");
+
 ?>
